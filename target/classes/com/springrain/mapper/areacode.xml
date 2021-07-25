@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springrain.dao.AreaCodeDao">
+
+    <sql id="selectFields">
+        id, provinceName, provinceId, cityId, cityName, areaCode, areaCode_Other, operateTime,remark
+    </sql>
+
+    <!--查询出所有的地区编码-->
+    <select id="getAllAreaCodes" resultType="com.springrain.entity.AreaCode">
+        select<include refid="selectFields"></include>
+        from areacode
+    </select>
+
+    <!--按省份分组统计城市名称及其对应数量按数量升序-->
+    <select id="getAllCityVOs" resultType="com.springrain.vo.CityVO">
+        SELECT cityname,COUNT(*) AS amount FROM areacode GROUP BY ProvinceName ORDER BY COUNT(*)
+    </select>
+
+</mapper>
